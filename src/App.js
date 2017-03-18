@@ -108,13 +108,13 @@ class Card extends React.Component {
       super(props);
       this.state = {
         value: null,
-        color: null
+        color: 'grey'
       };
   }
 
   render() {
     var buttonStyle = {
-           backgroundColor: this.props.color,
+           backgroundColor: this.state.color,
            color: "black",
            fontFamily: "monospace",
            fontSize: "28",
@@ -124,7 +124,7 @@ class Card extends React.Component {
         };
 
     return (
-      <button className='card' style={buttonStyle}>
+      <button className='card' style={buttonStyle} onClick={() => this.setState({color: this.props.color})}>
         {this.props.value} 
       </button>
     );
