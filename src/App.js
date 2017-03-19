@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className='App'>
-        <div className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div> 
-          <Spy />
-        </div>
-        <div> 
-          <Board />
-        </div>
+        <h1> Code Words </h1>
+        <Board />
       </div>
     );
   }
@@ -150,10 +138,17 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Card Name';
+    var buttonStyle = {
+      backgroundColor: "green",
+      color: "white",
+      padding: 15,
+      textAlign: "center",
+      display: "inline-block",
+      fontSize: 16
+    };
+
     return (
       <div>
-        <div className='status'>{status}</div>
         <div className='board-row'>
           {this.renderCardsRow({start: 0, end: 5})}
         </div>
@@ -169,32 +164,10 @@ class Board extends React.Component {
         <div className='board-row'>
           {this.renderCardsRow({start: 20, end: 25})}
         </div>
+        <button style={buttonStyle}> SpyMaster onClick={() => this.color.setState({color: this.props.color})}</button>
       </div>
     );
   }
 }
-
-class Spy extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
-  render() {
-    const style = {
-    height: 30,
-    width: 60,
-    };
-
-    return (
-      <button style={style} className='spy master' onClick={() => this.setState({value: 'X'})}>
-        SpyMaster
-      </button>
-    );
-  }
-}
-
 
 export default App;
