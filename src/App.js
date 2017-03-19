@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Helper.js';
 
 class App extends Component {
   render() {
@@ -125,15 +126,18 @@ class Board extends React.Component {
     const randomizedColors = shuffle(colors.slice(0));
     super();
     this.state = {
-      cards: { value: randomizedCards, colors: randomizedColors }
+      cardsProps: { value: randomizedCards, colors: randomizedColors },
+      cards: []
     };
   }
 
-  renderCardsRow(position) {
+  renderCardsRow(start, end) {
     var rows = [];
-    for (let i = position.start; i < position.end; i++) {
-      rows.push(<Card value={this.state.cards.value[i]} color={this.state.cards.colors[i]} />)
+    for (let i = start; i < end; i++) {
+      rows.push(<Card value={this.state.cardsProps.value[i]} color={this.state.cardsProps.colors[i]} />)
+      this.state.cards.push(<Card value={this.state.cardsProps.value[i]} color={this.state.cardsProps.colors[i]} />)
     }
+    
     return rows;
   }
 
@@ -150,21 +154,23 @@ class Board extends React.Component {
     return (
       <div>
         <div className='board-row'>
-          {this.renderCardsRow({start: 0, end: 5})}
+          {this.renderCardsRow(0, 5)}
         </div>
         <div className='board-row'>
-          {this.renderCardsRow({start: 5, end: 10})}
+          {this.renderCardsRow(5, 10)}
         </div>
         <div className='board-row'>
-          {this.renderCardsRow({start: 10, end: 15})}
+          {this.renderCardsRow(10, 15)}
         </div>
         <div className='board-row'>
-          {this.renderCardsRow({start: 15, end: 20})}
+          {this.renderCardsRow(15, 20)}
         </div>
         <div className='board-row'>
-          {this.renderCardsRow({start: 20, end: 25})}
+          {this.renderCardsRow(20, 25)}
         </div>
-        <button style={buttonStyle}> SpyMaster onClick={() => this.color.setState({color: this.props.color})}</button>
+        <button style={buttonStyle} onClick={() => this.state.cards.map((card) => this.setState({color: card.color}))}> 
+          SpyMaster
+        </button>
       </div>
     );
   }
