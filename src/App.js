@@ -179,7 +179,7 @@ class Board extends React.Component {
         <div className='board-row'>
           {this.renderCardsRow(20, 25)}
         </div>
-        <button style={buttonStyle} onClick={() => this.state.cards.map((card) => this.setState({color: card.color}))}> 
+        <button style={buttonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
           SpyMaster
         </button>
       </div>
