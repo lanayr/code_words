@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import './Helper.js';
 
 class App extends Component {
   render() {
@@ -64,7 +63,7 @@ const words = [
   'summon'
 ];
 
-const colors = [
+const cardColors = [
   'blue',
   'blue',
   'blue',
@@ -92,18 +91,24 @@ const colors = [
   blueOrRed()
 ] 
 
+const randomizedCards = shuffle(words.slice(0));
+const randomizedColors = shuffle(cardColors.slice(0));
+
 class Card extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-        value: null,
-        color: 'grey'
-      };
+      this.handleChange = this.handleChange.bind(this)
+  }
+
+  
+  handleChange() {
+    const position = this.props.position
+    this.props.onColorChange(position);
   }
 
   render() {
     var buttonStyle = {
-           backgroundColor: this.state.color,
+           backgroundColor: this.props.color,
            color: "black",
            fontFamily: "monospace",
            fontSize: "28",
@@ -113,7 +118,7 @@ class Card extends React.Component {
         };
 
     return (
-      <button className='card' style={buttonStyle} onClick={() => this.setState({color: this.props.color})}>
+      <button className='card' style={buttonStyle} onClick={this.handleChange}>
         {this.props.value} 
       </button>
     );
@@ -122,20 +127,26 @@ class Card extends React.Component {
 
 class Board extends React.Component {
   constructor() {
-    const randomizedCards = shuffle(words.slice(0));
-    const randomizedColors = shuffle(colors.slice(0));
     super();
+    this.handleClick = this.handleClick.bind(this)
     this.state = {
-      cardsProps: { value: randomizedCards, colors: randomizedColors },
-      cards: []
+      cards: randomizedCards, 
+      colors: Array(25).fill('grey')
     };
   }
 
+  handleClick(i) {
+    const colors = this.state.cards.slice(0);
+    colors[i] = randomizedColors[i];
+    this.setState({colors: colors});
+  }
+
   renderCardsRow(start, end) {
+    const cards = this.state.cards;
+    const colors = this.state.colors;
     var rows = [];
     for (let i = start; i < end; i++) {
-      rows.push(<Card value={this.state.cardsProps.value[i]} color={this.state.cardsProps.colors[i]} />)
-      this.state.cards.push(<Card value={this.state.cardsProps.value[i]} color={this.state.cardsProps.colors[i]} />)
+      rows.push(<Card value={cards[i]} color={colors[i]} position={i} onColorChange={this.handleClick}/>)
     }
     
     return rows;
