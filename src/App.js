@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import file from './data.js';
 
 class App extends Component {
   render() {
@@ -35,34 +36,7 @@ function blueOrRed() {
   return colors[index]
 }
 
-const words = [
-  'air', 
-  'water', 
-  'fire', 
-  'earth', 
-  'ang',
-  'katara', 
-  'zuko', 
-  'suka', 
-  'appa', 
-  'momo',
-  'iro', 
-  'luffy', 
-  'zoro', 
-  'nami', 
-  'robin',
-  'chopper', 
-  'sunny', 
-  'franky', 
-  'sanji', 
-  'one piece',
-  'naruto',
-  'chakra', 
-  'ninetails', 
-  'sage mode', 
-  'summon'
-];
-
+const words = file.data.slice(0)
 const cardColors = [
   'blue',
   'blue',
@@ -164,6 +138,9 @@ class Board extends React.Component {
 
     return (
       <div>
+        <button style={buttonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
+          SpyMaster
+        </button>
         <div className='board-row'>
           {this.renderCardsRow(0, 5)}
         </div>
@@ -179,9 +156,6 @@ class Board extends React.Component {
         <div className='board-row'>
           {this.renderCardsRow(20, 25)}
         </div>
-        <button style={buttonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
-          SpyMaster
-        </button>
       </div>
     );
   }
