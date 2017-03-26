@@ -36,6 +36,10 @@ function blueOrRed() {
   return colors[index]
 }
 
+function defaultCardColor() {
+  return Array(25).fill('grey')
+}
+
 const words = file.data.slice(0)
 const cardColors = [
   'blue',
@@ -105,7 +109,7 @@ class Board extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.state = {
       cards: randomizedCards, 
-      colors: Array(25).fill('grey')
+      colors: defaultCardColor
     };
   }
 
@@ -127,7 +131,7 @@ class Board extends React.Component {
   }
 
   render() {
-    var buttonStyle = {
+    var spyMasterButtonStyle = {
       backgroundColor: "green",
       color: "white",
       padding: 15,
@@ -136,10 +140,23 @@ class Board extends React.Component {
       fontSize: 16
     };
 
+    var resetButtonStyle = {
+      backgroundColor: "red",
+      color: "white",
+      padding: 15,
+      textAlign: "center",
+      float: "right",
+      display: "inline-block",
+      fontSize: 16
+    };
+
     return (
       <div>
-        <button style={buttonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
+        <button style={spyMasterButtonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
           SpyMaster
+        </button>
+        <button style={resetButtonStyle} onClick={() => this.setState({colors: defaultCardColor, cards: shuffle(randomizedCards.slice(0))})}> 
+          Reset
         </button>
         <div className='board-row'>
           {this.renderCardsRow(0, 5)}
