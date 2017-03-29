@@ -10,7 +10,7 @@
     "gh-pages": "^0.12.0",
     "react-scripts": "0.9.5"
   },
-  "homepage": "https://github.com/lanayr/code_words",
+  "homepage": "https://lanayr.github.io/code_words",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
