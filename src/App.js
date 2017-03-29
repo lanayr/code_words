@@ -6,7 +6,6 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <h1> Code Words </h1>
         <Board />
       </div>
     );
@@ -92,7 +91,7 @@ class Card extends React.Component {
            fontSize: "28",
            textAlign: "center",
            height: 120,
-           width: 180
+           width: 240
         };
 
     return (
@@ -137,7 +136,6 @@ class Board extends React.Component {
       padding: 15,
       textAlign: "center",
       display: "inline-block",
-      fontSize: 16
     };
 
     var resetButtonStyle = {
@@ -145,19 +143,39 @@ class Board extends React.Component {
       color: "white",
       padding: 15,
       textAlign: "center",
-      float: "right",
+      display: "inline-block",
+    };
+
+    var newGameButtonStyle = {
+      backgroundColor: "black",
+      color: "white",
+      padding: 15,
+      textAlign: "center",
+      display: "inline-block",
+    };
+
+    var headerStyle = {
+      backgroundColor: "white",
+      color: "black",
+      textAlign: "center",
       display: "inline-block",
       fontSize: 16
     };
 
     return (
       <div>
-        <button style={spyMasterButtonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
-          SpyMaster
-        </button>
-        <button style={resetButtonStyle} onClick={() => this.setState({colors: defaultCardColor, cards: shuffle(randomizedCards.slice(0))})}> 
-          Reset
-        </button>
+        <header style={headerStyle}>
+          <h1> CodeWords </h1>
+          <button style={resetButtonStyle} onClick={() => this.setState({colors: defaultCardColor, cards: shuffle(randomizedCards.slice(0))})}> 
+            NewGame
+          </button>
+          <button style={spyMasterButtonStyle} onClick={() => this.setState({colors: randomizedColors})}> 
+            SpyMaster
+          </button>
+          <button style={newGameButtonStyle} onClick={() => this.setState({colors: defaultCardColor})}> 
+            ResetColor
+          </button>
+        </header>
         <div className='board-row'>
           {this.renderCardsRow(0, 5)}
         </div>
